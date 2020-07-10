@@ -117,11 +117,64 @@ def regrecionLineal(x,y):
     print("La mejor aproximacion es a los valores dados son")
     print("y = " + str(a) + "x + " + str(b))
     return lf
+
+def valoresPrimos(valoresX):
+    """
+    Funcion auxiliar que nos permitira tener los valores de una tabla
+    extra para poder sacar Coeficiente de corelacion lineal
+    """
+    media=mediaAritmetica(valoresX)
+    lr=[]
+    contador=0
+    i=0
+    while contador < len(valoresX):
+       i=valoresX[contador]
+       lr.append(i-media)
+       contador+=1 
+    return lr
+
+def productoCXYPRimos(listaPuntos):
+    """"
+    Producto cuadrado de x con la x prima recibe los valores de x y 
+    tambien funciona con las y
+    """
+    xPrima=valoresPrimos(listaPuntos)
+    lf=productoCuadrado(xPrima)
+    return lf
+
+def productoXY(valoreDeX, valoresDeY):
+    xPrimo=valoresPrimos(valoreDeX)
+    yPrima=valoresPrimos(valoresDeY)
+    lf=[]
+    contador=0
+    valorActual=0
+    
+    for i in xPrimo:
+        valorActual=i*yPrima[contador]
+        lf.append(valorActual)
+        contador+=1
+    return lf    
+
+            
+def correlacionLineal(valoreDeX,valoresDeY):
+    xPrima=productoCXYPRimos(valoreDeX)
+    yprima=productoCXYPRimos(valoresDeY)
+    sumaXPrima=sumaLista(xPrima)
+    sumaYprima=sumaLista(yprima)
+    producto=productoXY(valoreDeX,valoresDeY)
+    rNumerado=sumaLista(producto)
+    rDenomidaor=math.sqrt(sumaXPrima) * math.sqrt(sumaYprima)
+    return rNumerado/rDenomidaor
+    
+
 """
 Funcion del main 
 """
 if __name__ == "__main__":
    y=[3,5,9,10,20,21,24,24,27,35]
    x=[100,90,80,45,50,50,60,40,25,20]
-   regrecionLineal(x,y)
    
+   correlacionLineal(x,y)
+   #print(productoXY(x,y))
+   #print(valoresPrimos(x))
+   #print(valoresPrimos(y))
