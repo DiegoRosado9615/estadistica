@@ -6,10 +6,6 @@ Un modulo que tendra algunas cosas de estadistica que van desde medias,
 hasta graficas
 """
 def mediaAritmetica(listaNumeros):
-    """Funcion que saca la medianAritmetica, 
-        recibe una lista de número
-        devuelve un entero  
-    """
     cantidad=0
     for i in listaNumeros:
         cantidad= cantidad+i
@@ -94,7 +90,14 @@ def pedienteX(x,y):
     numeradorA=(n*sumaProdxy)-(sumax * sumay)
     denominadorA=(n*sumaXCuadrado)-sumax**2
     return numeradorA/denominadorA
-       
+
+def intercepcion(x,y):
+    sumay=sumaLista(y)
+    a=pedienteX(x,y)
+    sumax=sumaLista(x)
+    n=len(x)
+    b=sumay-(a*sumax)
+    return b/len(x)       
         
 def creadorGraficaBarras(nombresX, valores,titulo ):
     fig=mp.figure(u'Grafica de Barras')
@@ -105,11 +108,20 @@ def creadorGraficaBarras(nombresX, valores,titulo ):
     #ax.set_xticklabels(nombresX)
     mp.show()
 
+def regrecionLineal(x,y):
+    lf=[]
+    a=pedienteX(x,y)
+    b=intercepcion(x,y)
+    lf.append(a)
+    lf.append(b)
+    print("La mejor aproximacion es a los valores dados son")
+    print("y = " + str(a) + "x + " + str(b))
+    return lf
 """
 Funcion del main 
 """
 if __name__ == "__main__":
    y=[3,5,9,10,20,21,24,24,27,35]
    x=[100,90,80,45,50,50,60,40,25,20]
-   print(pedienteX(x,y))
+   regrecionLineal(x,y)
    
